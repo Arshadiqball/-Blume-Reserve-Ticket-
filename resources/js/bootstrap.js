@@ -1,13 +1,12 @@
-import Echo from '@ably/laravel-echo';
-import * as Ably from 'ably';
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
 
-window.Ably = Ably;
+window.Pusher = Pusher;
+
 window.Echo = new Echo({
-    broadcaster: 'ably',
-});
-
-window.Echo.connector.ably.connection.on(stateChange => {
-    if (stateChange.current === 'connected') {
-        console.log('connected to ably server');
-    }
+    broadcaster: 'pusher',
+    key: 'da524cf29bc1ed97af93',
+    cluster: 'ap2',
+    forceTLS: true,
+    encryption: true,
 });

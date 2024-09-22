@@ -32,7 +32,7 @@ class BRTController extends Controller
             'reserved_amount' => $validatedData['reserved_amount'],
         ]);
         
-        broadcast(new BRTUpdated($brt));
+        event(new BRTUpdated($brt));
 
         return response()->json($brt, Response::HTTP_CREATED);
     }
@@ -68,9 +68,9 @@ class BRTController extends Controller
         try {
             $brt = BRT::findOrFail($id);
             $brt->delete();
-
-            broadcast(new BRTUpdated($brt));
             
+            broadcast(new BRTUpdated($brt));
+
             return response()->json(['message' => 'BRT deleted'], Response::HTTP_OK);
         } catch (ModelNotFoundException $e) {
             return response()->json(['error' => 'BRT not found'], Response::HTTP_NOT_FOUND);

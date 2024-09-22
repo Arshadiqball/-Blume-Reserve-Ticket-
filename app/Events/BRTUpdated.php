@@ -33,9 +33,9 @@ class BRTUpdated implements ShouldBroadcast
     public function broadcastOn()
     {
         // Log the channel name
-        Log::info('BRTUpdated Event Broadcasting on Channel', ['channel' => 'public']);
+        Log::info('BRTUpdated Event Broadcasting on Channel', ['channel' => 'notification']);
 
-        return new Channel('public');
+        return new Channel('notification');
     }
 
     /**
@@ -43,7 +43,6 @@ class BRTUpdated implements ShouldBroadcast
      */
     public function broadcastWith()
     {
-        // Log the data being broadcasted
         Log::info('BRTUpdated Event Data', ['data' => $this->brt]);
 
         return ['brt' => $this->brt];
@@ -51,6 +50,6 @@ class BRTUpdated implements ShouldBroadcast
 
     public function broadcastAs()
     {
-        return 'public';
+        return 'analytics';
     }
 }

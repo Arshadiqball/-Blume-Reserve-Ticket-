@@ -36,17 +36,14 @@ return [
             'secret' => env('PUSHER_APP_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),
             'options' => [
-                'cluster' => env('PUSHER_APP_CLUSTER'),
-                'useTLS' => true,
-                'encrypted' => true,
-                'host' => 'realtime.ably.io',
-                'port' => 443,
+                'cluster' => env('PUSHER_APP_CLUSTER'),  // Make sure this is set correctly
+                'useTLS' => true,  // Ensure TLS is enabled for secure connection
             ],
         ],
+
         'ably' => [
             'driver' => 'ably',
             'key' => env('ABLY_KEY'),
-            'disable_public_channels' => false
         ],
 
         'log' => [

@@ -2,6 +2,6 @@
 
 use Illuminate\Support\Facades\Broadcast;
 
-Broadcast::channel('public', function () {
+Broadcast::channel('notification', function () {
     return true;  
 });

@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import axios from 'axios'; 
-import * as Ably from 'ably';  
+import axios from 'axios';  // Import Axios here
+import * as Ably from 'ably';  // Import Ably
 
 export default {
   data() {
@@ -60,7 +60,6 @@ export default {
         brtsPerWeek: [],
         brtsPerMonth: [],
       },
-      ablyChannel: 'public', 
     };
   },
   mounted() {
@@ -80,18 +79,30 @@ export default {
       });
     },
     setupRealTimeUpdates() {
-      Echo.channel('public')
-        .listen('BRTUpdated', (e) => {
-          console.log('Public BRTUpdated event received:', e.brt);
-          this.fetchAnalytics();  
-        });
-    }
+      Echo.channel('notification')
+      .listen('.analytics', (e) => {
+        console.log('BRTUpdated event received:', e);
+        this.fetchAnalytics();
+      })
+      .error((error) => {
+        console.error('Error subscribing to the Echo channel:', error);
+      });
 
+      // Check connection state
+      Echo.connector.pusher.connection.bind('connected', () => {
+        console.log('Connected to Pusher!');
+      });
+
+      Echo.connector.pusher.connection.bind('error', (error) => {
+        console.error('Error with Pusher connection:', error);
+      });
+    }
   }
 };
 </script>
 
 <style scoped>
+/* Add your styles for the dashboard */
 .analytics-section {
   margin-bottom: 20px;
 }
